@@ -27,7 +27,7 @@ def send_messages(request):
     message = Messages(text=text, user=user)
     message.save()
     if not chat_id:
-        chat_id = user.request_chat_id
+        chat_id = user.request_chat_id()
         if not chat_id:
             return Response(status=status.HTTP_403_FORBIDDEN)
     a = requests.get(f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage?chat_id={chat_id}&text={message}').json()     
